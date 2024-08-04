@@ -1,0 +1,89 @@
+<div class="navbar">
+    <div class="site-name">Thought Share</div>
+    <div class="nav-links">
+        <a href="/home?q=all-post&email={{owner.email}}" id="all-posts-link" style="color: black;">All Thoughts</a>
+        <a href="/home?q=my-post&email={{owner.email}}" id="my-posts-link" style="color: black;">My Thoughts</a>
+        <a href="/home?q=create-post&email={{owner.email}}" id="my-posts-link" style="color: black;">Create Thoughts</a>
+    </div>
+    <div class="nav-links">
+        <a href="/home?q=all-post&email={{owner.email}}" id="all-posts-link" style="color: black;">{{owner.name}}</a>
+        <a href="/logout" id="my-posts-link" style="color: red;">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+
+    {{#if allPost}}
+    <div class="posts" id="all-posts">
+        <h2>All Thoughts</h2>
+        {{#each allData}}
+        <div class="post">
+            <div class="post-header">
+                <div class="post-author">Created by: {{this.email}}</div>
+                <div class="post-time">Time: {{this.created_at}}</div>
+            </div>
+            <div class="post-content">
+                {{this.text}}
+            </div>
+            <div class="post-actions">
+                <button>
+                    <img src="https://img.icons8.com/material-outlined/24/000000/thumb-up.png" alt="like" />
+                    <span class="count">{{this.likes}}</span>
+                </button>
+                <button>
+                    <img src="https://img.icons8.com/material-outlined/24/000000/thumbs-down.png" alt="dislike" />
+                    <span class="count">{{this.dislikes}}</span>
+                </button>
+            </div>
+        </div>
+        {{/each}}
+        <div class="no-posts" style="display: none;">No items found</div>
+    </div>
+    {{/if}}
+    {{#if myPost}}
+    <div class="posts" id="my-posts">
+        <h2>My Thoughts</h2>
+        {{#each myData}}
+        <div class="post">
+            <div class="post-header">
+                <div class="post-time">Time: {{this.created_at}}</div>
+                <a href="/user/delete/thought?email={{this.email}}&id={{this.id}}">
+                    <img src="https://img.icons8.com/material-outlined/24/000000/delete.png" alt="delete"
+                        onclick="deleteItem()" style="cursor: pointer;" />
+                </a>
+            </div>
+            <div class="post-content">
+                {{this.text}}
+            </div>
+            <div class="post-actions">
+                <button>
+                    <img src="https://img.icons8.com/material-outlined/24/000000/thumb-up.png" alt="like" />
+                    <span class="count">{{this.likes}}</span>
+                </button>
+                <button>
+                    <img src="https://img.icons8.com/material-outlined/24/000000/thumbs-down.png" alt="dislike" />
+                    <span class="count">{{this.dislikes}}</span>
+                </button>
+            </div>
+        </div>
+        {{/each}}
+        <div class="no-posts" style="display: none;">No items found</div>
+    </div>
+    {{/if}}
+    {{#if createPost}}
+    <div class="create-thought-container">
+        <form class="form" action="/user/create/thought" method="post">
+            <div class="flex-column">
+                <label>Express your thoughts or ideas<label>
+            </div>
+            <div class="inputForm" style="display: none;">
+                <input type="text" value="{{owner.email}}" name="email" class="input" />
+            </div>
+            <div class="inputForm">
+                <input type="text" name="text" class="input" placeholder="Type here......" />
+            </div>
+            <button class="button-submit">Share</button>
+        </form>
+    </div>
+    {{/if}}
+</div>
