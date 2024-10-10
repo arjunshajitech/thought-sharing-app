@@ -1,11 +1,11 @@
 const mysql = require('mysql');
 
-
+// change database, port, user, password
 const pool = mysql.createPool({
   connectionLimit: 10, 
-  database: "mydb",
+  database: "test",
   host: "localhost",
-  port: "5001",
+  port: "5005",
   user: "root",
   password: "root"
 });
